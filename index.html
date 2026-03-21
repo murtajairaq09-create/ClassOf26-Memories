@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class of 2026 Memories</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: white;
+      text-align: center;
+    }
+
+    header {
+      padding: 40px 20px;
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #94a3b8;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+      padding: 20px;
+    }
+
+    .card {
+      background: #1e293b;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+    }
+
+    img, video {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    footer {
+      padding: 20px;
+      color: #64748b;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Class of 2026</h1>
+  <p>Memories that will never fade</p>
+</header>
+
+<section class="gallery">
+  <!-- IMAGE EXAMPLE -->
+  <div class="card">
+    <img src="media/photo1.jpg" alt="Memory 1">
+  </div>
+
+  <!-- VIDEO EXAMPLE -->
+  <div class="card">
+    <video controls>
+      <source src="media/video1.mp4" type="video/mp4">
+    </video>
+  </div>
+
+</section>
+
+<footer>
+  Made with ❤️ by your juniors
+</footer>
+
+</body>
+</html>
