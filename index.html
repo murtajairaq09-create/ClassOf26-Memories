@@ -40,6 +40,7 @@
       overflow: hidden;
       box-shadow: 0 4px 20px rgba(0,0,0,0.3);
       transition: transform 0.3s;
+      cursor: pointer;
     }
 
     .card:hover {
@@ -50,6 +51,30 @@
       width: 100%;
       height: 200px;
       object-fit: cover;
+    }
+
+    /* Fullscreen viewer */
+    .viewer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .viewer img, .viewer video {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+
+    .viewer.active {
+      display: flex;
     }
 
     footer {
@@ -67,6 +92,8 @@
 
 <section class="gallery" id="gallery"></section>
 
+<div class="viewer" id="viewer" onclick="closeViewer()"></div>
+
 <footer>
   Made with ❤️ by your juniors
 </footer>
@@ -82,23 +109,26 @@
       const card = document.createElement('div');
       card.className = 'card';
 
+      let element;
+
       if (item.type === 'image') {
-        const img = document.createElement('img');
-        img.src = item.src;
-        card.appendChild(img);
+        element = document.createElement('img');
+        element.src = item.src;
       }
 
       if (item.type === 'video') {
-        const video = document.createElement('video');
-        video.controls = true;
-
-        const source = document.createElement('source');
-        source.src = item.src;
-        source.type = 'video/mp4';
-
-        video.appendChild(source);
-        card.appendChild(video);
+        element = document.createElement('video');
+        element.src = item.src;
+        element.controls = true;
       }
+
+      // Click to open fullscreen
+      element.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openViewer(item);
+      });
+
+      card.appendChild(element);
 
       if (item.caption) {
         const caption = document.createElement('p');
@@ -108,6 +138,34 @@
 
       gallery.appendChild(card);
     });
+  }
+
+  function openViewer(item) {
+    const viewer = document.getElementById('viewer');
+    viewer.innerHTML = '';
+
+    let element;
+
+    if (item.type === 'image') {
+      element = document.createElement('img');
+      element.src = item.src;
+    }
+
+    if (item.type === 'video') {
+      element = document.createElement('video');
+      element.src = item.src;
+      element.controls = true;
+      element.autoplay = true;
+    }
+
+    viewer.appendChild(element);
+    viewer.classList.add('active');
+  }
+
+  function closeViewer() {
+    const viewer = document.getElementById('viewer');
+    viewer.classList.remove('active');
+    viewer.innerHTML = '';
   }
 
   loadMedia();
